@@ -1,26 +1,141 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Google Sans Flex — local variable font from assets */
+@font-face {
+  font-family: "Google Sans Flex";
+  src: url("/Google_Sans_Flex/GoogleSansFlex-VariableFont_GRAD,ROND,opsz,slnt,wdth,wght.ttf") format("truetype");
+  font-weight: 100 1000;
+  font-display: swap;
+  font-style: normal;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: #030305;
+  --color-foreground: #ffffff;
+  --font-sans: "Google Sans Flex", system-ui, sans-serif;
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(60px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes orb-float {
+    0% {
+      transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    33% {
+      transform: translate(-30px, -50px) scale(1.05) rotate(120deg);
+    }
+
+    66% {
+      transform: translate(20px, 40px) scale(0.95) rotate(240deg);
+    }
+
+    100% {
+      transform: translate(0, 0) scale(1) rotate(360deg);
+    }
+  }
+
+  @keyframes gentle-bob {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-15px);
+    }
+  }
+
+  @keyframes bounce-slow {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(15px);
+    }
+  }
+
+  @keyframes neon-blink {
+
+    0%,
+    100% {
+      opacity: 1;
+      box-shadow: 0 0 15px currentColor;
+    }
+
+    50% {
+      opacity: 0;
+      box-shadow: 0 0 0px currentColor;
+    }
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #030305;
+  --foreground: #ffffff;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-optical-sizing: auto;
+  font-variation-settings: "slnt" 0, "wdth" 100, "GRAD" 0, "ROND" 0;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-orb {
+  animation: orb-float 25s infinite ease-in-out alternate;
+}
+
+.animate-bob {
+  animation: gentle-bob 8s ease-in-out infinite;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+}
+
+.animate-neon-blink {
+  animation: neon-blink 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.glass-panel {
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
 }

@@ -1,0 +1,27 @@
+---
+description: Infrastructure Intelligence Platform — frontend-only scope, API consumer
+alwaysApply: true
+---
+
+# Infrastructure Intelligence Platform (Frontend)
+
+## Scope
+**This repo is frontend only.** Backend (Express API, MongoDB, ingestion engine) is built by another developer. Build UI and consume the backend API via a defined contract; use env (e.g. `NEXT_PUBLIC_API_URL`) for API base URL.
+
+## What the Platform Is
+Centralized intelligence for infrastructure markets (Africa first, then global). Users see projects (highways, power plants, data centers, ports, housing, etc.) in one place: status, stage, funders, builders. Target users: infrastructure investors, DFIs, strategy/consulting, government planning, project developers.
+
+## Frontend Stack & Responsibilities
+- **Stack**: Next.js (App Router), TypeScript, Tailwind. Deploy: Vercel.
+- **Build**: Auth UI (login/session), dashboards with filters, project list and detail pages, admin panel (validate/edit projects, view ingestion logs). All data comes from the backend API.
+
+## Roles (UI behavior)
+- **Public**: browse, filter, search, view project details; no edit/delete or admin UI.
+- **Admin**: same as public plus validate, edit, delete projects; see ingestion logs and flagged items.
+
+## Project Data (API contract)
+Expect from API: name, country, sector, status, stage, estimated cost, developers, government agency, sources, timeline. Lifecycle stages: concept → feasibility → tender → financing → construction → operational (plus delayed/stalled). Design components and types to this shape.
+
+## Conventions
+- Type API responses and request payloads; keep a single source for project/infra types (e.g. shared types or API client).
+- Handle loading and error states for all API calls. Assume backend may be unavailable during development (mock or env switch if needed).
