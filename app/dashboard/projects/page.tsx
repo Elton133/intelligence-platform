@@ -33,7 +33,7 @@ export default function ProjectsPage() {
             Browse and filter the complete infrastructure pipeline.
           </p>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <div className="glass-panel border border-white/5 rounded-xl px-3 py-2 flex items-center gap-2">
             <FilterIcon size={16} className="text-white/50" />
             <select 

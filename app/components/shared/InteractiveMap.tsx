@@ -82,21 +82,21 @@ export default function InteractiveMap() {
       )}
       
       {/* Map Legend & Tooltip Overlay */}
-      <div className="absolute bottom-6 left-6 glass-panel border border-white/10 rounded-xl p-4 flex flex-col gap-3 backdrop-blur-md bg-black/40">
-        <div className="text-xs font-medium text-white/70 uppercase tracking-widest mb-1">Legend</div>
-        <div className="flex items-center gap-2 text-xs text-white/60">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" /> Active / Pipeline
+      <div className="absolute bottom-4 left-4 md:bottom-6 md:left-6 glass-panel border border-white/10 rounded-xl p-3 md:p-4 flex flex-col gap-2 md:gap-3 backdrop-blur-md bg-black/40 scale-75 md:scale-100 origin-bottom-left">
+        <div className="text-[10px] md:text-xs font-medium text-white/70 uppercase tracking-widest mb-1">Legend</div>
+        <div className="flex items-center gap-2 text-[10px] md:text-xs text-white/60">
+          <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" /> Active / Pipeline
         </div>
-        <div className="flex items-center gap-2 text-xs text-white/60">
-          <span className="w-2 h-2 rounded-full bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,0.8)]" /> Delayed / Stalled
+        <div className="flex items-center gap-2 text-[10px] md:text-xs text-white/60">
+          <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-orange-400 shadow-[0_0_8px_rgba(251,146,60,0.8)]" /> Delayed / Stalled
         </div>
-        <div className="flex items-center gap-2 text-xs text-white/60">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" /> Completed
+        <div className="flex items-center gap-2 text-[10px] md:text-xs text-white/60">
+          <span className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" /> Completed
         </div>
       </div>
 
       {tooltip && (
-        <div className="absolute top-6 right-6 glass-panel border border-white/10 rounded-xl px-4 py-2 text-sm font-medium text-white shadow-xl animate-fade-in-up backdrop-blur-md bg-black/60" style={{ animationDuration: '0.2s' }}>
+        <div className="absolute top-4 right-4 md:top-6 md:right-6 glass-panel border border-white/10 rounded-xl px-3 py-1.5 md:px-4 md:py-2 text-xs md:text-sm font-medium text-white shadow-xl animate-fade-in-up backdrop-blur-md bg-black/60" style={{ animationDuration: '0.2s' }}>
           {tooltip}
         </div>
       )}

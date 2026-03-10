@@ -26,10 +26,10 @@ export default function SettingsPage() {
           {/* Density Toggle */}
           <div>
             <label className="block text-sm font-medium text-white/90 mb-3">Data Density</label>
-            <div className="flex gap-4">
+            <div className="flex flex-col sm:flex-row gap-4">
               <button 
                 onClick={() => setDensity('comfortable')}
-                className={`flex-1 p-4 rounded-xl border transition-all ${
+                className={`flex-1 p-4 rounded-xl border transition-all text-left ${
                   density === 'comfortable' 
                     ? 'border-cyan-500/50 bg-cyan-500/10' 
                     : 'border-white/10 bg-white/2 hover:bg-white/4'
@@ -41,7 +41,7 @@ export default function SettingsPage() {
               
               <button 
                 onClick={() => setDensity('compact')}
-                className={`flex-1 p-4 rounded-xl border transition-all ${
+                className={`flex-1 p-4 rounded-xl border transition-all text-left ${
                   density === 'compact' 
                     ? 'border-cyan-500/50 bg-cyan-500/10' 
                     : 'border-white/10 bg-white/2 hover:bg-white/4'

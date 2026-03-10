@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useDashboard } from "@/app/dashboard/context";
 import {
   DashboardSquare01Icon,
   Folder01Icon,
@@ -17,6 +18,12 @@ import {
 export default function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(true);
   const pathname = usePathname();
+  const { isMobileSidebarOpen, setMobileSidebarOpen } = useDashboard();
+
+  // Close mobile sidebar on route change
+  useEffect(() => {
+    setMobileSidebarOpen(false);
+  }, [pathname, setMobileSidebarOpen]);
 
   const navItems = [
     { name: "Overview", href: "/dashboard", icon: DashboardSquare01Icon },
@@ -30,11 +37,22 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside
-      className={`relative flex flex-col border-r border-white/5 bg-white/1 backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-20 ${
-        isExpanded ? "w-64" : "w-20"
-      }`}
-    >
+    <>
+      {/* Mobile Overlay */}
+      {isMobileSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setMobileSidebarOpen(false)}
+        />
+      )}
+
+      <aside
+        className={`fixed md:relative inset-y-0 left-0 flex flex-col border-r border-white/5 bg-[#0a0a0f]/95 md:bg-white/1 backdrop-blur-2xl transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] z-50 ${
+          isExpanded ? "w-64" : "w-20"
+        } ${
+          isMobileSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}
+      >
       {/* Brand Header */}
       <div className="h-16 flex items-center px-6 border-b border-white/5 shrink-0 overflow-hidden">
         <Link href="/" className="flex items-center gap-3 group min-w-max">
@@ -130,10 +148,10 @@ export default function Sidebar() {
         </button>
       </div>
 
-      {/* Toggle Button */}
+      {/* Toggle Button (Desktop Only) */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-[#0a0a0f] border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 hover:scale-110 transition-all shadow-lg z-30"
+        className="hidden md:flex absolute -right-3 top-20 w-6 h-6 rounded-full bg-[#0a0a0f] border border-white/10 items-center justify-center text-white/50 hover:text-white hover:border-white/30 hover:scale-110 transition-all shadow-lg z-30"
       >
         {isExpanded ? (
           <ArrowLeftDoubleIcon size={14} />
@@ -142,5 +160,6 @@ export default function Sidebar() {
         )}
       </button>
     </aside>
+    </>
   );
 }

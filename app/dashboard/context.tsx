@@ -9,6 +9,8 @@ interface DashboardContextType {
   setDensity: (d: Density) => void;
   isCommandMenuOpen: boolean;
   setCommandMenuOpen: (o: boolean) => void;
+  isMobileSidebarOpen: boolean;
+  setMobileSidebarOpen: (o: boolean) => void;
 }
 
 const DashboardContext = createContext<DashboardContextType | undefined>(undefined);
@@ -16,6 +18,7 @@ const DashboardContext = createContext<DashboardContextType | undefined>(undefin
 export function DashboardProvider({ children }: { children: React.ReactNode }) {
   const [density, setDensity] = useState<Density>("comfortable");
   const [isCommandMenuOpen, setCommandMenuOpen] = useState(false);
+  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -30,7 +33,14 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <DashboardContext.Provider
-      value={{ density, setDensity, isCommandMenuOpen, setCommandMenuOpen }}
+      value={{ 
+        density, 
+        setDensity, 
+        isCommandMenuOpen, 
+        setCommandMenuOpen,
+        isMobileSidebarOpen,
+        setMobileSidebarOpen
+      }}
     >
       {children}
     </DashboardContext.Provider>
