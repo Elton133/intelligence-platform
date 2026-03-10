@@ -73,7 +73,7 @@ export default function Sidebar() {
                 className={`shrink-0 transition-colors duration-300 ${
                   isActive ? "text-cyan-400" : "group-hover:text-white/70"
                 }`}
-                variant={isActive ? "solid" : "stroke"}
+                // variant={isActive ? "solid" : "stroke"}
               />
               <span
                 className={`text-sm font-light whitespace-nowrap transition-all duration-300 ${
@@ -103,7 +103,7 @@ export default function Sidebar() {
               }`}
               title={!isExpanded ? item.name : undefined}
             >
-              <Icon size={20} className="shrink-0 group-hover:text-white/70" variant="stroke" />
+              <Icon size={20} className="shrink-0 group-hover:text-white/70" />
               <span
                 className={`text-sm font-light whitespace-nowrap transition-all duration-300 ${
                   isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 absolute left-12"
@@ -119,7 +119,7 @@ export default function Sidebar() {
           className="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-white/50 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300 group"
           title={!isExpanded ? "Log out" : undefined}
         >
-          <Logout01Icon size={20} className="shrink-0" variant="stroke" />
+          <Logout01Icon size={20} className="shrink-0" />
           <span
             className={`text-sm font-light whitespace-nowrap transition-all duration-300 ${
               isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 absolute left-12"
@@ -136,9 +136,9 @@ export default function Sidebar() {
         className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-[#0a0a0f] border border-white/10 flex items-center justify-center text-white/50 hover:text-white hover:border-white/30 hover:scale-110 transition-all shadow-lg z-30"
       >
         {isExpanded ? (
-          <ArrowLeftDoubleIcon size={14} variant="stroke" />
+          <ArrowLeftDoubleIcon size={14} />
         ) : (
-          <ArrowRightDoubleIcon size={14} variant="stroke" />
+          <ArrowRightDoubleIcon size={14}  />
         )}
       </button>
     </aside>

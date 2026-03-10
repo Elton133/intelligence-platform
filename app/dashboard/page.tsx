@@ -19,6 +19,8 @@ import {
   Bar
 } from 'recharts';
 
+import { useDashboard } from "./context";
+
 // Dummy Data
 const pipelineData = [
   { month: 'Jan', value: 400 },
@@ -47,6 +49,9 @@ const recentProjects = [
 ];
 
 export default function DashboardPage() {
+  const { density } = useDashboard();
+  const isCompact = density === 'compact';
+
   return (
     <div className="space-y-6 md:space-y-8 max-w-7xl mx-auto">
       
@@ -67,7 +72,7 @@ export default function DashboardPage() {
           <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-all duration-500 group-hover:bg-cyan-500/20" />
           <div className="flex justify-between items-start mb-4">
             <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
-              <Briefcase01Icon size={20} className="text-cyan-400" variant="stroke" />
+              <Briefcase01Icon size={20} className="text-cyan-400"  />
             </div>
             <span className="flex items-center gap-1 text-xs font-medium text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-md">
               <ArrowUpRight01Icon size={12} /> 12.5%
@@ -82,7 +87,7 @@ export default function DashboardPage() {
           <div className="absolute top-0 right-0 w-32 h-32 bg-fuchsia-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-all duration-500 group-hover:bg-fuchsia-500/20" />
           <div className="flex justify-between items-start mb-4">
             <div className="w-10 h-10 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/20 flex items-center justify-center">
-              <Activity01Icon size={20} className="text-fuchsia-400" variant="stroke" />
+              <Activity01Icon size={20} className="text-fuchsia-400" />
             </div>
             <span className="flex items-center gap-1 text-xs font-medium text-emerald-400 bg-emerald-400/10 px-2 py-1 rounded-md">
               <ArrowUpRight01Icon size={12} /> 4.2%
@@ -97,7 +102,7 @@ export default function DashboardPage() {
           <div className="absolute top-0 right-0 w-32 h-32 bg-orange-500/10 rounded-full blur-3xl -mr-10 -mt-10 transition-all duration-500 group-hover:bg-orange-500/20" />
           <div className="flex justify-between items-start mb-4">
             <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
-              <Alert01Icon size={20} className="text-orange-400" variant="stroke" />
+              <Alert01Icon size={20} className="text-orange-400" />
             </div>
             <span className="flex items-center gap-1 text-xs font-medium text-red-400 bg-red-400/10 px-2 py-1 rounded-md">
               <ArrowDownRight01Icon size={12} /> 2.1%
@@ -182,12 +187,12 @@ export default function DashboardPage() {
             <tbody className="divide-y divide-white/5 text-sm font-light">
               {recentProjects.map((project) => (
                 <tr key={project.id} className="hover:bg-white/2 transition-colors group cursor-pointer">
-                  <td className="px-6 py-4 text-white/90 font-medium group-hover:text-cyan-400 transition-colors">{project.name}</td>
-                  <td className="px-6 py-4 text-white/60">{project.country}</td>
-                  <td className="px-6 py-4 text-white/60">{project.sector}</td>
-                  <td className="px-6 py-4 text-white/60">{project.stage}</td>
-                  <td className="px-6 py-4 text-white/60">{project.value}</td>
-                  <td className="px-6 py-4">
+                  <td className={`px-6 ${isCompact ? 'py-2' : 'py-4'} text-white/90 font-medium group-hover:text-cyan-400 transition-colors`}>{project.name}</td>
+                  <td className={`px-6 ${isCompact ? 'py-2' : 'py-4'} text-white/60`}>{project.country}</td>
+                  <td className={`px-6 ${isCompact ? 'py-2' : 'py-4'} text-white/60`}>{project.sector}</td>
+                  <td className={`px-6 ${isCompact ? 'py-2' : 'py-4'} text-white/60`}>{project.stage}</td>
+                  <td className={`px-6 ${isCompact ? 'py-2' : 'py-4'} text-white/60`}>{project.value}</td>
+                  <td className={`px-6 ${isCompact ? 'py-2' : 'py-4'}`}>
                     <span className={`inline-flex items-center px-2 py-1 rounded-md text-[10px] font-medium tracking-wide uppercase ${
                       project.status === 'Active' ? 'bg-cyan-500/10 text-cyan-400 border border-cyan-500/20' :
                       project.status === 'Delayed' ? 'bg-orange-500/10 text-orange-400 border border-orange-500/20' :

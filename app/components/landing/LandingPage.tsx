@@ -2,7 +2,7 @@
 
 import { useRef } from "react";
 import AntigravityBackground from "./AntigravityBackground";
-import Image from "next/image";
+import InteractiveMap from "../shared/InteractiveMap";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -242,12 +242,7 @@ export default function LandingPage() {
 
           {/* Video/Image Placeholder Area */}
           <div className="flex-1 relative overflow-hidden bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.05)_0%,transparent_50%)]">
-            <Image
-              src="/assets/dashboard.jpeg"
-              alt="Dashboard"
-              fill
-              className="object-cover"
-            />
+            <InteractiveMap />
           </div>
 
   {/* Gradient overlay at bottom */}
@@ -393,9 +388,64 @@ export default function LandingPage() {
 </div>
         </section>
         
-        {/* Minimal Footer */}
-        <footer className="w-full py-12 text-center text-white/20 text-[10px] md:text-xs tracking-[0.2em] font-light uppercase z-10 relative">
-          <p>Infrastructure Intelligence Platform • Africa First, Then Global</p>
+        {/* --- COMPREHENSIVE FOOTER --- */}
+        <footer className="relative w-full pt-20 pb-10 px-6 border-t border-white/5 bg-black/20 backdrop-blur-lg z-10 mt-20">
+          <div className="max-w-7xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
+              {/* Brand Col */}
+              <div className="lg:col-span-2">
+                <Link href="/" className="flex items-center gap-3 group mb-6 inline-flex">
+                  <div className="w-5 h-5 rounded-full bg-linear-to-tr from-cyan-400 to-fuchsia-500 shadow-[0_0_15px_rgba(34,211,238,0.3)] group-hover:shadow-[0_0_20px_rgba(34,211,238,0.6)] transition-shadow duration-500"></div>
+                  <span className="font-medium tracking-widest text-sm text-white/90 group-hover:text-white transition-colors uppercase">Infra Intel</span>
+                </Link>
+                <p className="text-white/50 text-sm font-light leading-relaxed max-w-sm">
+                  The single source of truth for infrastructure markets. Track pipelines, discover opportunities, and monitor execution risk across Africa and beyond.
+                </p>
+              </div>
+              
+              {/* Links Cols */}
+              <div>
+                <h4 className="text-white/90 text-xs font-medium tracking-widest uppercase mb-6">Platform</h4>
+                <ul className="space-y-4 text-sm text-white/50 font-light">
+                  <li><Link href="/dashboard" className="hover:text-cyan-400 transition-colors">Dashboard</Link></li>
+                  <li><Link href="/dashboard/projects" className="hover:text-cyan-400 transition-colors">Projects</Link></li>
+                  <li><Link href="/dashboard/analytics" className="hover:text-cyan-400 transition-colors">Analytics</Link></li>
+                  <li><Link href="/dashboard/map" className="hover:text-cyan-400 transition-colors">Map View</Link></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="text-white/90 text-xs font-medium tracking-widest uppercase mb-6">Resources</h4>
+                <ul className="space-y-4 text-sm text-white/50 font-light">
+                  <li><Link href="#" className="hover:text-cyan-400 transition-colors">Documentation</Link></li>
+                  <li><Link href="#" className="hover:text-cyan-400 transition-colors">API Access</Link></li>
+                  <li><Link href="#" className="hover:text-cyan-400 transition-colors">Market Reports</Link></li>
+                  <li><Link href="#" className="hover:text-cyan-400 transition-colors">Methodology</Link></li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 className="text-white/90 text-xs font-medium tracking-widest uppercase mb-6">Company</h4>
+                <ul className="space-y-4 text-sm text-white/50 font-light">
+                  <li><Link href="#" className="hover:text-cyan-400 transition-colors">About Us</Link></li>
+                  <li><Link href="#" className="hover:text-cyan-400 transition-colors">Careers</Link></li>
+                  <li><Link href="#" className="hover:text-cyan-400 transition-colors">Contact</Link></li>
+                  <li><Link href="#" className="hover:text-cyan-400 transition-colors">Privacy Policy</Link></li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+              <p className="text-white/30 text-xs font-light">
+                &copy; {new Date().getFullYear()} Infrastructure Intelligence Platform. All rights reserved.
+              </p>
+              <div className="flex items-center gap-6 text-white/30 text-xs font-light tracking-wider uppercase">
+                <Link href="#" className="hover:text-white transition-colors">Twitter</Link>
+                <Link href="#" className="hover:text-white transition-colors">LinkedIn</Link>
+                <Link href="#" className="hover:text-white transition-colors">GitHub</Link>
+              </div>
+            </div>
+          </div>
         </footer>
       </main>
     </div>
