@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
+import Link from "next/link";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP, TextPlugin);
@@ -48,9 +49,9 @@ export default function LandingPage() {
     .add(() => {
       // Remove cursor from line 1 wrapper and append to line 2 wrapper
       if (cursorRef.current && line2Ref.current) {
-        // Change cursor color from cyan to fuchsia
-        cursorRef.current.classList.remove('bg-cyan-300', 'text-cyan-300');
-        cursorRef.current.classList.add('bg-fuchsia-400', 'text-fuchsia-400');
+        // Change cursor color to match the text gradient end
+        cursorRef.current.classList.remove('bg-white/80', 'text-white/80');
+        cursorRef.current.classList.add('bg-white/40', 'text-white/40');
         // Move it down to line 2
         line2Ref.current.parentElement?.appendChild(cursorRef.current);
       }
@@ -176,15 +177,23 @@ export default function LandingPage() {
       
       {/* --- APPLE UI INSPIRED NAVBAR --- */}
       <nav className="fixed top-0 w-full z-50 flex items-center justify-between px-4 md:px-6 py-4 bg-black/10 backdrop-blur-2xl border-b border-white/[0.05]">
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-400 to-fuchsia-500 shadow-[0_0_15px_rgba(34,211,238,0.5)]"></div>
-          <span className="font-medium tracking-wide text-sm hidden sm:block">Platform</span>
-        </div>
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="w-6 h-6 rounded-full bg-gradient-to-tr from-cyan-400 to-fuchsia-500 shadow-[0_0_15px_rgba(34,211,238,0.5)] group-hover:shadow-[0_0_20px_rgba(34,211,238,0.8)] transition-shadow duration-500"></div>
+          <span className="font-medium tracking-wide text-sm hidden sm:block text-white/90 group-hover:text-white transition-colors">Platform</span>
+        </Link>
         <div className="flex items-center gap-4 md:gap-6 text-sm">
-          <button className="text-white/70 hover:text-white transition-colors duration-300 font-medium">Log in</button>
-          <button className="px-5 py-2.5 rounded-full bg-white text-black font-medium hover:bg-white/90 hover:scale-105 transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+          <Link
+            href="/auth/login"
+            className="text-white/70 hover:text-white transition-colors duration-300 font-medium"
+          >
+            Log in
+          </Link>
+          <Link
+            href="/auth/register"
+            className="px-5 py-2.5 rounded-full bg-white text-black font-medium hover:bg-white/90 hover:scale-105 transition-all active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
+          >
             Sign up
-          </button>
+          </Link>
         </div>
       </nav>
       
@@ -196,20 +205,20 @@ export default function LandingPage() {
             <h1 ref={heroTextRef} className="text-4xl md:text-5xl lg:text-[72px] font-light tracking-tighter leading-[1.05] drop-shadow-2xl flex flex-col items-center z-10 opacity-0 translate-y-8">
               <div className="flex items-center justify-center h-[1.2em]">
                 <span ref={line1Ref}></span>
-                <span ref={cursorRef} className="animate-neon-blink inline-block w-[4px] md:w-[6px] h-[0.9em] bg-cyan-300 ml-2 rounded-full text-cyan-300 transition-colors duration-300"></span>
+                <span ref={cursorRef} className="animate-neon-blink inline-block w-[4px] md:w-[6px] h-[0.9em] bg-white/80 ml-2 rounded-full text-white/80 transition-colors duration-300"></span>
               </div>
               <div className="flex items-center justify-center h-[1.2em] mt-1 md:mt-2">
-                <span ref={line2Ref} className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 via-indigo-300 to-fuchsia-300 drop-shadow-lg"></span>
+                <span ref={line2Ref} className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/40 drop-shadow-lg"></span>
               </div>
             </h1>
 
             <div ref={heroButtonRef} className="pt-6 md:pt-6 opacity-0 translate-y-8">
-              <button className="group relative px-8 py-4 md:px-10 md:py-5 bg-white text-black rounded-full overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+              <Link href="/auth/register" className="group relative inline-flex items-center justify-center px-8 py-4 md:px-10 md:py-5 bg-white text-black rounded-full overflow-hidden transition-all duration-500 hover:scale-[1.02] active:scale-95 shadow-[0_0_40px_rgba(255,255,255,0.2)]">
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-200 to-fuchsia-200 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <span className="relative z-10 font-medium tracking-widest uppercase text-xs md:text-sm">
                   Explore live projects
                 </span>
-              </button>
+              </Link>
             </div>
           </div>
           
@@ -218,16 +227,17 @@ export default function LandingPage() {
           ref={dashboardRef}
           className="mt-10 md:mt-20 relative w-full max-w-6xl aspect-[4/3] sm:aspect-video rounded-2xl md:rounded-[2.5rem] border border-white/20 bg-black/40 backdrop-blur-3xl shadow-[0_40px_100px_rgba(0,0,0,0.8)] overflow-hidden glass-panel transform transition-transform duration-1000 md:hover:scale-[1.02] flex flex-col group opacity-0 scale-95"
           >
-          {/* macOS styled Title Bar */}
-          <div className="w-full h-10 md:h-12 border-b border-white/10 bg-white/[0.03] flex items-center px-4 md:px-6 gap-2 shrink-0">
-            <div className="flex gap-2">
-              <div className="w-2.5 md:w-3 h-2.5 md:h-3 rounded-full bg-red-500/80"></div>
-              <div className="w-2.5 md:w-3 h-2.5 md:h-3 rounded-full bg-yellow-500/80"></div>
-              <div className="w-2.5 md:w-3 h-2.5 md:h-3 rounded-full bg-green-500/80"></div>
+          {/* Abstract Title Bar */}
+          <div className="w-full h-10 md:h-12 border-b border-white/5 bg-white/[0.02] flex items-center justify-between px-4 md:px-6 shrink-0">
+            <div className="flex gap-1.5 opacity-50">
+              <div className="w-1.5 h-1.5 rounded-full bg-white/40"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-white/40"></div>
+              <div className="w-1.5 h-1.5 rounded-full bg-white/40"></div>
             </div>
-            <div className="mx-auto text-[10px] md:text-xs font-medium tracking-wider text-white/40 uppercase pl-8 md:pl-0">
+            <div className="text-[9px] md:text-[10px] font-medium tracking-[0.2em] text-white/30 uppercase">
               Infrastructure Projects Intelligence & Monitoring Platform
             </div>
+            <div className="w-8"></div> {/* Spacer for centering */}
           </div>
 
           {/* Video/Image Placeholder Area */}
@@ -277,23 +287,24 @@ export default function LandingPage() {
             
             <div className="w-full lg:w-1/2 space-y-8 md:space-y-10 order-1 lg:order-2">
               <h2 className="narrative-text text-4xl sm:text-5xl md:text-6xl font-light tracking-tight leading-[1.1] text-center lg:text-left">
-                Hyper-fluid <br/>
-                <span className="font-medium text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-300 via-pink-300 to-orange-300">UX Architecture</span>
+                From scattered news<br/>
+                <span className="font-medium text-transparent bg-clip-text bg-gradient-to-r from-cyan-200 to-blue-400">
+                  to a single source of truth
+                </span>
               </h2>
               <p className="narrative-text text-lg md:text-xl text-white/50 font-light leading-relaxed max-w-xl mx-auto lg:mx-0 text-center lg:text-left">
-                Interactions and animations create sensations that are incredibly smooth, buoyant, and kinetic. 
-                Interface elements gently drift, bob, or scatter smoothly in response to user input.
+                Connect announcements, tenders, DFI releases, and news into one coherent database of infrastructure projects.
               </p>
               
               <ul className="narrative-text space-y-4 md:space-y-6 pt-4 max-w-sm mx-auto lg:mx-0">
                 {[
-                  "Untethered precise typography",
-                  "Multi-dimensional optical shadows",
-                  "Boundless spatial ascension"
+                  "Link news, tenders, DFIs, and government portals into one record",
+                  "Track each project across its lifecycle from concept to operations",
+                  "Filter by country, sector, stage, and value in seconds"
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center text-white/70 text-base md:text-lg font-light">
-                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-fuchsia-400 mr-4 md:mr-6 shadow-[0_0_15px_rgba(232,121,249,0.8)]"></span>
-                    {item}
+                  <li key={i} className="flex items-start text-white/70 text-base md:text-lg font-light leading-relaxed">
+                    <span className="w-1.5 h-1.5 shrink-0 rounded-full bg-cyan-400 mt-2.5 mr-4 md:mr-5 shadow-[0_0_12px_rgba(34,211,238,0.6)]"></span>
+                    <span>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -306,20 +317,19 @@ export default function LandingPage() {
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-16 md:mb-32">
               <h2 className="narrative-text text-4xl sm:text-5xl md:text-6xl font-light tracking-tight mb-6 md:mb-8">
-                The Quiet Vastness of <br />
-                <span className="font-medium italic text-white/90">Orbital Environments</span>
+                Built for infrastructure<br />
+                <span className="font-medium italic text-white/90">investors, DFIs, and governments</span>
               </h2>
               <p className="narrative-text text-white/50 text-base md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
-                Channel the emotional resonance of premium, hyper-sophisticated architectural spaces 
-                that playfully shatter expected constraints.
+                One interface for understanding pipelines, surfacing opportunities, and managing execution risk across regions and sectors.
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
               {[
-                { title: "Suspended Tranquility", color: "from-cyan-400/20", borderC: "hover:border-cyan-400/30", textC: "text-cyan-400" },
-                { title: "Kinetic Tension", color: "from-indigo-400/20", borderC: "hover:border-indigo-400/30", textC: "text-indigo-400" },
-                { title: "Frictionless Atmosphere", color: "from-fuchsia-400/20", borderC: "hover:border-fuchsia-400/30", textC: "text-fuchsia-400" },
+                { title: "Pipeline visibility", color: "from-cyan-400/20", borderC: "hover:border-cyan-400/30", textC: "text-cyan-400", body: "See announced, tendered, financed, under-construction, and operational projects in one place." },
+                { title: "Capital and sponsors", color: "from-indigo-400/20", borderC: "hover:border-indigo-400/30", textC: "text-indigo-400", body: "Understand who is funding and developing each asset — DFIs, private capital, and public sponsors." },
+                { title: "Risk and momentum", color: "from-fuchsia-400/20", borderC: "hover:border-fuchsia-400/30", textC: "text-fuchsia-400", body: "Identify stalled or delayed projects and spot which pipelines are actually moving." },
               ].map((card, i) => (
                 <div 
                   key={i} 
@@ -333,7 +343,7 @@ export default function LandingPage() {
                     </div>
                     <h3 className="text-2xl md:text-3xl font-light mb-4 md:mb-5 tracking-tight">{card.title}</h3>
                     <p className="text-white/40 font-light leading-relaxed text-sm md:text-lg group-hover:text-white/60 transition-colors duration-500">
-                      Impeccably crafted and technologically boundless, entirely devoid of heavy borders.
+                      {card.body}
                     </p>
                   </div>
                 </div>
@@ -376,16 +386,16 @@ export default function LandingPage() {
       </video>
     </div>
 
-    <button className="px-8 py-4 md:px-12 md:py-6 bg-white text-black rounded-full font-medium tracking-widest uppercase text-xs md:text-sm hover:bg-transparent hover:text-white hover:border-white border border-transparent transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]">
+    <Link href="/auth/register" className="inline-flex items-center justify-center px-8 py-4 md:px-12 md:py-6 bg-white text-black rounded-full font-medium tracking-widest uppercase text-xs md:text-sm hover:bg-transparent hover:text-white hover:border-white border border-transparent transition-all duration-500 hover:shadow-[0_0_40px_rgba(255,255,255,0.2)]">
       Request platform access
-    </button>
+    </Link>
   </div>
 </div>
         </section>
         
         {/* Minimal Footer */}
         <footer className="w-full py-12 text-center text-white/20 text-[10px] md:text-xs tracking-[0.2em] font-light uppercase z-10 relative">
-          <p>Antigravity Modernism Concept • No Grid, All Flow</p>
+          <p>Infrastructure Intelligence Platform • Africa First, Then Global</p>
         </footer>
       </main>
     </div>
