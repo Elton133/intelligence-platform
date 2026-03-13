@@ -2,9 +2,11 @@
 
 import { Search01Icon, Notification01Icon, UserCircleIcon, Layout01Icon, Menu01Icon } from "hugeicons-react";
 import { useDashboard } from "../../dashboard/context";
+import { useAuth } from "@/lib/hooks/useAuth";
 
 export default function Header() {
   const { setCommandMenuOpen, density, setDensity, setMobileSidebarOpen } = useDashboard();
+  const { user } = useAuth();
 
   return (
     <header className="h-16 border-b border-white/5 bg-white/1 backdrop-blur-xl flex items-center justify-between px-4 md:px-6 shrink-0 z-10 gap-4">
@@ -52,8 +54,12 @@ export default function Header() {
             <UserCircleIcon size={20} className="text-cyan-100"  />
           </div>
           <div className="hidden md:flex flex-col items-start">
-            <span className="text-xs font-medium text-white/90">Jane Doe</span>
-            <span className="text-[10px] text-white/40">Admin</span>
+            <span className="text-xs font-medium text-white/90">
+              {user ? user.fullName : "Loading..."}
+            </span>
+            <span className="text-[10px] text-white/40">
+              {user ? user.role : "..."}
+            </span>
           </div>
         </button>
       </div>

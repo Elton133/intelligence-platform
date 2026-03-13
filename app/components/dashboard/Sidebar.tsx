@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useDashboard } from "@/app/dashboard/context";
+import { useAuth } from "@/lib/hooks/useAuth";
 import {
   DashboardSquare01Icon,
   Folder01Icon,
@@ -19,6 +20,7 @@ export default function Sidebar() {
   const [isExpanded, setIsExpanded] = useState(true);
   const pathname = usePathname();
   const { isMobileSidebarOpen, setMobileSidebarOpen } = useDashboard();
+  const { logout } = useAuth();
 
   // Close mobile sidebar on route change
   useEffect(() => {
@@ -134,6 +136,7 @@ export default function Sidebar() {
         })}
         
         <button
+          onClick={logout}
           className="w-full flex items-center gap-3 px-3 py-3 rounded-xl text-white/50 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300 group"
           title={!isExpanded ? "Log out" : undefined}
         >
